@@ -21,5 +21,14 @@ public:
                 Instructions();
                 ~Instructions();
     void        addInstruction(std::string);
-    void        push(std::stack<IOperand>, std::string) {}
+    void        push(std::stack<IOperand>, std::string);
+    void        pop(std::stack<IOperand>, std::string);
+    void        dump(std::stack<IOperand>, std::string);
+    void        assert(std::stack<IOperand>, std::string);
+    void        add(std::stack<IOperand>, std::string);
+    void        sub(std::stack<IOperand>, std::string);
+    void        mul(std::stack<IOperand>, std::string);
+    void        div(std::stack<IOperand>, std::string);
+    void        mod(std::stack<IOperand>, std::string);
+    void        print(std::stack<IOperand>, std::string);
 };
