@@ -5,14 +5,19 @@
 // Login   <verove_j@epitech.net>
 // 
 // Started on  Mon Feb  9 16:03:45 2015 Jordan Verove
-// Last update Mon Feb  9 17:39:47 2015 Jordan Verove
+// Last update Tue Feb 10 10:58:13 2015 Jordan Verove
 //
 
-#include "IOperand.hh"
+#include "../inc/IOperand.hh"
 
 IOperand::~IOperand()
 {
 
+}
+
+T		IOperand::getValue() const
+{
+  return (this->value);
 }
 
 IOperand* IOperand::operator+(const IOperand &rhs)
