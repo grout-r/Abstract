@@ -3,32 +3,38 @@
 #include <stack>
 #include <string>
 #include <map>
+#include <utility>
+#include <sstream>
 #include "IOperand.hh"
-
-typedef struct  s_instruction
-{
-    void        (*funcptr)(std::stack <int>operand);
-    std::string input;
-}               t_instruction;
 
 class           Instructions
 {
 private:
-    std::map    <std::string, void *> db;
-    std::vector  <std::string> instructions;
+    typedef void (Instructions::*ptr)(std::string);
+/*
+    struct  s_instruction
+    {
+        void        (Instructions::*ptr)(std::string);
+        std::string input;
+    };
+ */
+
+    std::map    <std::string, ptr> db;
+    std::vector  <std::pair<ptr, std::string> > instructions;
 
 public:
                 Instructions();
                 ~Instructions();
-    void        addInstruction(std::string);
-    void        push(std::stack<IOperand>, std::string);
-    void        pop(std::stack<IOperand>, std::string);
-    void        dump(std::stack<IOperand>, std::string);
-    void        assert(std::stack<IOperand>, std::string);
-    void        add(std::stack<IOperand>, std::string);
-    void        sub(std::stack<IOperand>, std::string);
-    void        mul(std::stack<IOperand>, std::string);
-    void        div(std::stack<IOperand>, std::string);
-    void        mod(std::stack<IOperand>, std::string);
-    void        print(std::stack<IOperand>, std::string);
+    void        addInstruction(const std::string&);
+    void        execute();
+    void        push( std::string);
+    void        pop( std::string);
+    void        dump( std::string);
+    void        assert( std::string);
+    void        add( std::string);
+    void        sub( std::string);
+    void        mul( std::string);
+    void        div( std::string);
+    void        mod( std::string);
+    void        print( std::string);
 };
