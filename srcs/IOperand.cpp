@@ -38,7 +38,7 @@ IOperand* IOperand::operator*(const IOperand &rhs)
 }
 
 
-IOperand* IOperand::operator/(const IOperand &rhs)
+IOperand* IOperand::operator-(const IOperand &rhs)
 {
 
 }

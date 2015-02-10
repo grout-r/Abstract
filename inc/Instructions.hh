@@ -13,14 +13,6 @@ class           Instructions
 {
 private:
     typedef void (Instructions::*ptr)(std::string);
-/*
-    struct  s_instruction
-    {
-        void        (Instructions::*ptr)(std::string);
-        std::string input;
-    };
- */
-
     std::map    <std::string, ptr> db;
     std::vector  <std::pair<ptr, std::string> > instructions;
 
