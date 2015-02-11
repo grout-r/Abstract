@@ -5,7 +5,7 @@
 // Login   <verove_j@epitech.net>
 // 
 // Started on  Mon Feb  9 15:53:45 2015 Jordan Verove
-// Last update Tue Feb 10 11:00:15 2015 Jordan Verove
+// Last update Wed Feb 11 10:47:11 2015 Jordan Verove
 //
 
 #ifndef IOPERAND_HH_
@@ -24,8 +24,6 @@ enum    eOperandType
 
 class IOperand
 {
-protected:
-
 public:
   virtual ~IOperand(){}
 

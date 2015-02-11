@@ -15,15 +15,15 @@
 class           Instructions
 {
 private:
-    typedef void (Instructions::*ptr)(std::string);
-    std::map    <std::string, ptr> db;
-    std::vector  <std::pair<ptr, std::string> > instructions;
+  typedef void (Instructions::*ptr)(std::string);
+  std::map    <std::string, ptr> db;
+  std::vector  <std::pair<ptr, std::string> > instructions;
 
 public:
                 Instructions();
                 ~Instructions();
-    void        addInstruction(const std::string&);
-    IOperand *  createOperand(eOperandType type, const std::string & value);
+  void        addInstruction(const std::string&);
+  IOperand *  createOperand(eOperandType type, const std::string & value);
     void        execute();
     void        push( std::string);
     void        pop( std::string);
