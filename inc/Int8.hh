@@ -18,10 +18,11 @@ private:
 public:
   Int8();
   ~Int8();
-  
-  IOperand*	operator+(const IOperand &rhs);
-  IOperand*	operator-(const IOperand &rhs);
-  IOperand*	operator*(const IOperand &rhs);
-  IOperand*	operator/(const IOperand &rhs);
-  IOperand*	operator%(const IOperand &rhs);
+
+    char    getValue();
+    IOperand*	operator+(const IOperand &rhs);
+    IOperand*	operator-(const IOperand &rhs);
+    IOperand*	operator*(const IOperand &rhs);
+    IOperand*	operator/(const IOperand &rhs);
+    IOperand*	operator%(const IOperand &rhs);
 };

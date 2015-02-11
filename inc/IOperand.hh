@@ -13,15 +13,13 @@
 
 #include <string>
 
-template<typename T>
+
 class IOperand
 {
-private:
-  T		value;
 public:
-  virtual ~IOperand();
+  virtual ~IOperand(){}
 
-  T		getValue() const;
+  virtual void		getValue() const = 0;
   /*
   virtual std::string const& toString() const = 0;
 

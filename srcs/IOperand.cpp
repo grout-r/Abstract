@@ -10,15 +10,13 @@
 
 #include "../inc/IOperand.hh"
 
+/*
+
 IOperand::~IOperand()
 {
 
 }
-
-T		IOperand::getValue() const
-{
-  return (this->value);
-}
+*/
 
 IOperand* IOperand::operator+(const IOperand &rhs)
 {

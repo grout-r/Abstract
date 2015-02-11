@@ -22,25 +22,30 @@ Int8::~Int8()
 
 IOperand*	Int8::operator+(const IOperand &rhs)
 {
-  return (this->value + rhs.getValue());
+//  return (this->value + rhs.getValue());
 }
 
 IOperand*	Int8::operator-(const IOperand &rhs)
 {
-  return (this->value - rhs.getValue());
+  //return (this->value - rhs.getValue());
 }
 
 IOperand*	Int8::operator*(const IOperand &rhs)
 {
-  return (this->value * rhs.getValue());
+  //return (this->value * rhs.getValue());
 }
 
 IOperand*	Int8::operator/(const IOperand &rhs)
 {
-  return (this->value / rhs.getValue());
+  //return (this->value / rhs.getValue());
 }
 
 IOperand*	Int8::operator%(const IOperand &rhs)
 {
-  return (this->value % rhs.getValue());
+  //return (this->value % rhs.getValue());
+}
+
+char Int8::getValue()
+{
+    return this->value;
 }
