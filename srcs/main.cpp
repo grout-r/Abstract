@@ -1,40 +1,43 @@
-
 #include "Instructions.hh"
 
-void parseFileInstruction(char *string);
+void parseFileInstruction(char *filename, Instructions &instr)
+{
+    std::ifstream file;
+    std::string     line;
+
+    file.open(filename);
+    if (!file.is_open())
+        std::cout << "The file has not been foud !" << std::endl;
+    while (std::getline (file,line))
+        instr.addInstruction(line);
+    file.close();
+}
+
+void parseUserInstruction(Instructions &instr)
+{
+    std::string     line;
+
+    while (line != ";;")
+    {
+        std::getline(std::cin, line);
+        instr.addInstruction(line);
+    }
+}
 
 int                         main(int ac, char **av)
 {
+    Instructions instr;
+
     if (ac > 1)
     {
         std::cout << "File Mode" << std::endl;
-        parseFileInstruction(av[1]);
+        parseFileInstruction(av[1], instr);
     }
     else
     {
         std::cout << "Manual Mode" << std::endl;
-
-        Instructions instr;
-
-        instr.addInstruction("pop");
-        instr.addInstruction("add");
-        instr.addInstruction("mul");
-        instr.addInstruction("push Int8(14)");
-        instr.execute();
-
+        parseUserInstruction(instr);
     }
+    instr.execute();
     return (0);
-}
-
-void parseFileInstruction(char *filename)
-{
-    std::ifstream file;
-
-    std::cout << filename << std::endl;
-
-    file.open(filename);
-
-    std::cout << file.is_open() << std::endl;
-    if (!file.is_open())
-        std::cout << "File is bad !" << std::endl;
 }

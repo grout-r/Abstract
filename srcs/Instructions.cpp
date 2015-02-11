@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "Instructions.hh"
 
@@ -26,6 +27,7 @@ void Instructions::execute()
     size_t size;
     size = this->instructions.size();
 
+    std::cout << "there is " <<this->instructions.size() << " instructions" << std::endl;
     for(i = 0; i !=size; i++)
     {
         (*this.*(instructions[i].first))(this->instructions[i].second);
@@ -40,14 +42,17 @@ void Instructions::addInstruction(const std::string &line)
 
     void                (Instructions::*ptr)(std::string);
     tmp >> word;
-    ptr = this->db[word];
-    newInstruction.first = ptr;
-    if (word == "push" || word == "assert")
+    if (this->db.count(word))
     {
-        tmp >> word;
-        newInstruction.second = word;
+        ptr = this->db[word];
+        newInstruction.first = ptr;
+        if (word == "push" || word == "assert")
+        {
+            tmp >> word;
+            newInstruction.second = word;
+        }
+        this->instructions.insert(this->instructions.end(), newInstruction);
     }
-    this->instructions.insert(this->instructions.end(), newInstruction);
 }
 
 void Instructions::push(std::string string)
