@@ -1,0 +1,3 @@
+push Int8(14)
+pop Int8(14)
+add Int8(14)
