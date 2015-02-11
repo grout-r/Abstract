@@ -13,11 +13,24 @@ Instructions::Instructions()
     this->db["div"] = &Instructions::div;
     this->db["mod"] = &Instructions::mod;
     this->db["print"] = &Instructions::print;
+    this->db_create[INT8] = &Instructions::createInt8;
+    this->db_create[INT16] = &Instructions::createInt16;
+    this->db_create[INT32] = &Instructions::createInt32;
+    this->db_create[FLOAT] = &Instructions::createFloat;
+    this->db_create[DOUBLE] = &Instructions::createDouble;
 }
 
 Instructions::~Instructions()
 {
 
+}
+
+std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
+{
+    std::pair<eOperandType, std::string> ret;
+    ret.first = INT8;
+    ret.second = "15";
+    return (ret);
 }
 
 void Instructions::execute()
@@ -56,12 +69,15 @@ void Instructions::addInstruction(const std::string &line)
 
 IOperand *Instructions::createOperand(eOperandType type, std::string const &value)
 {
-
+    (this->*(db_create[type]))(value);
 }
 
 void Instructions::push(std::string string)
 {
-    std::cout << string << std::endl;
+    std::pair<eOperandType, std::string> newValue;
+
+    newValue = parseValue(string);
+    createOperand(newValue.first, newValue.second);
 }
 
 void Instructions::pop(std::string string)
@@ -116,9 +132,11 @@ IOperand *Instructions::createInt8(const std::string &value)
 
     oss >> c;
     Int8 *newValue = new Int8(c);
+    std::cout << "j'ai crée un Int 8! ses parametre sont : " << value << std::endl;
+    return newValue;
 }
 
-IOperand *Instructions::createInt16(std::string const &value)
+IOperand *Instructions::createInt16(const std::string &value)
 {
     return NULL;
 }
@@ -137,3 +155,4 @@ IOperand *Instructions::createDouble(const std::string &value)
 {
     return NULL;
 }
+
