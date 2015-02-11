@@ -5,6 +5,8 @@
 #include <map>
 #include <utility>
 #include <sstream>
+#include <iostream>
+#include <fstream>
 #include "IOperand.hh"
 
 class           Instructions
