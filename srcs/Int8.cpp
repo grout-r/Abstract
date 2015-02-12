@@ -10,9 +10,14 @@
 
 #include "../inc/Int8.hh"
 
-Int8::Int8()
+Int8::Int8(char value)
 {
-
+    this->value = value;
+    std::ostringstream oss;
+    oss <<  this->value;
+    this->s_value = oss.str();
+    this->type = INT8;
+    this->precision = 0;
 }
 
 Int8::~Int8()
@@ -22,30 +27,45 @@ Int8::~Int8()
 
 IOperand*	Int8::operator+(const IOperand &rhs)
 {
-//  return (this->value + rhs.getValue());
+
 }
 
 IOperand*	Int8::operator-(const IOperand &rhs)
 {
   //return (this->value - rhs.getValue());
+    return NULL;
 }
 
 IOperand*	Int8::operator*(const IOperand &rhs)
 {
   //return (this->value * rhs.getValue());
+    return NULL;
 }
 
 IOperand*	Int8::operator/(const IOperand &rhs)
 {
   //return (this->value / rhs.getValue());
+    return NULL;
 }
 
 IOperand*	Int8::operator%(const IOperand &rhs)
 {
   //return (this->value % rhs.getValue());
+    return NULL;
 }
 
-char Int8::getValue()
+
+int Int8::getPrecision() const
 {
-    return this->value;
+    return this->precision;
+}
+
+eOperandType Int8::getType() const
+{
+    return this->type;
+}
+
+std::string const& Int8::toString() const
+{
+   return this->s_value;
 }

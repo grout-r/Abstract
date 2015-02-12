@@ -1,13 +1,14 @@
-
-#include <vector>
-#include <stack>
-#include <string>
-#include <map>
-#include <utility>
-#include <sstream>
-#include <iostream>
-#include <fstream>
-#include "IOperand.hh"
+#ifndef INSTRUCTION_H_
+# define INSTRUCTION_H_
+# include <vector>
+# include <stack>
+# include <string>
+# include <map>
+# include <utility>
+# include <sstream>
+# include <iostream>
+# include <fstream>
+# include "IOperand.hh"
 
 class           Instructions
 {
@@ -20,6 +21,7 @@ public:
                 Instructions();
                 ~Instructions();
     void        addInstruction(const std::string&);
+    IOperand *  createOperand(eOperandType type, const std::string & value);
     void        execute();
     void        push( std::string);
     void        pop( std::string);
@@ -31,4 +33,11 @@ public:
     void        div( std::string);
     void        mod( std::string);
     void        print( std::string);
+    IOperand * createInt8(const std::string & value);
+    IOperand * createInt16(const std::string & value);
+    IOperand * createInt32(const std::string & value);
+    IOperand * createFloat(const std::string & value);
+    IOperand * createDouble(const std::string & value);
 };
+
+#endif

@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <Int8.hh>
 #include "Instructions.hh"
 
 Instructions::Instructions()
@@ -55,6 +56,11 @@ void Instructions::addInstruction(const std::string &line)
     }
 }
 
+IOperand *Instructions::createOperand(eOperandType type, std::string const &value)
+{
+
+}
+
 void Instructions::push(std::string string)
 {
     std::cout << string << std::endl;
@@ -103,4 +109,29 @@ void Instructions::mod(std::string string)
 void Instructions::print(std::string string)
 {
     std::cout << string << std::endl;
+}
+
+IOperand *Instructions::createInt8(const std::string &value)
+{
+    Int8 *newValue = new Int8(std::stoi(value));
+}
+
+IOperand *Instructions::createInt16(std::string const &value)
+{
+    return NULL;
+}
+
+IOperand *Instructions::createInt32(const std::string &value)
+{
+    return NULL;
+}
+
+IOperand *Instructions::createFloat(const std::string &value)
+{
+    return NULL;
+}
+
+IOperand *Instructions::createDouble(const std::string &value)
+{
+    return NULL;
 }
