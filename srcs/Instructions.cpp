@@ -25,6 +25,14 @@ Instructions::~Instructions()
 
 }
 
+std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
+{
+    std::pair<eOperandType, std::string> ret;
+    ret.first = INT8;
+    ret.second = "15";
+    return (ret);
+}
+
 void Instructions::execute()
 {
     size_t i = 0;
@@ -66,8 +74,10 @@ IOperand *Instructions::createOperand(eOperandType type, std::string const &valu
 
 void Instructions::push(std::string string)
 {
-    std::cout << string << std::endl;
-    createOperand(INT8 , "54");
+    std::pair<eOperandType, std::string> newValue;
+
+    newValue = parseValue(string);
+    createOperand(newValue.first, newValue.second);
 }
 
 void Instructions::pop(std::string string)
@@ -122,7 +132,7 @@ IOperand *Instructions::createInt8(const std::string &value)
 
     oss >> c;
     Int8 *newValue = new Int8(c);
-    std::cout << "j'ai crée un Int 8!" << std::endl;
+    std::cout << "j'ai crée un Int 8! ses parametre sont : " << value << std::endl;
     return newValue;
 }
 
@@ -145,3 +155,4 @@ IOperand *Instructions::createDouble(const std::string &value)
 {
     return NULL;
 }
+
