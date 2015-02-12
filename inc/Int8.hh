@@ -12,17 +12,21 @@
 # define INT8_H_
 
 # include <sstream>
+# include <map>
+# include <iostream>
 # include "IOperand.hh"
 
-class Int8 : public IOperand
+class                                   Int8 : public IOperand
 {
 private:
-  char		value;
-  std::string s_value;
-  eOperandType type;
-  int         precision;
-  typedef void	(Int8::*ptr)(eOperandType);
-  std::map	<eOperandType, ptr> map_type;
+  char		                            value;
+  std::string                           s_value;
+  eOperandType                          type;
+  int                                   precision;
+  typedef IOperand*	                    (Int8::*ptr)(const IOperand &rhs, char);
+  std::map<eOperandType, ptr>           map_type;
+    template<typename T>
+    IOperand *calc(const IOperand &rhs, char);
 
 public:
   Int8(char);

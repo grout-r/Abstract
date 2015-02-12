@@ -18,11 +18,11 @@ Int8::Int8(char value)
     this->s_value = oss.str();
     this->type = INT8;
     this->precision = 0;
-    this->map_type[INT8] = &addition<char>;
-    this->map_type[INT16] = &addition<short>;
-    this->map_type[INT32] = &addition<int>;
-    this->map_type[FLOAT] = &addition<float>;
-    this->map_type[DOUBLE] = &addition<double>;
+    this->map_type[INT8] = &Int8::calc<char>;
+    this->map_type[INT16] = &Int8::calc<short>;
+    this->map_type[INT32] = &Int8::calc<int>;
+    this->map_type[FLOAT] = &Int8::calc<float>;
+    this->map_type[DOUBLE] = &Int8::calc<double>;
 }
 
 Int8::~Int8()
@@ -31,16 +31,27 @@ Int8::~Int8()
 }
 
 template<typename T>
-IOperand*	Int8::addition(T value)
+IOperand*	Int8::calc(const IOperand &rhs, char operation)
 {
-  
+  if (operation == '+')
+      std::cout << "j'addtionnne" << std::endl;
+  else if (operation == '-')
+      std::cout << "je soustrais" << std::endl;
+  else if (operation == '*')
+      std::cout << "je multiplie" << std::endl;
+  else if (operation == '/')
+      std::cout << "je divise" << std::endl;
+  else if (operation == '%')
+      std::cout << "je modulo" << std::endl;
+return NULL;
 }
 
-IOperand*	Int8::operator+(const IOperand &rhs)
+IOperand*	    Int8::operator+(const IOperand &rhs)
 {
-  void		(Int8::*ptr)(eOperandType);
+  IOperand*		(Int8::*ptr)(const IOperand &rhs, char);
 
-  ptr = rhs.map_type.[getType()];
+    ptr = this->map_type[rhs.getType()];
+    (*this.*(ptr))(rhs, '+');
 }
 
 IOperand*	Int8::operator-(const IOperand &rhs)

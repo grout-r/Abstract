@@ -75,9 +75,11 @@ IOperand *Instructions::createOperand(eOperandType type, std::string const &valu
 void Instructions::push(std::string string)
 {
     std::pair<eOperandType, std::string> newValue;
+    IOperand               *newOperand;
 
     newValue = parseValue(string);
-    createOperand(newValue.first, newValue.second);
+    newOperand = createOperand(newValue.first, newValue.second);
+    this->stackOperand.push(newOperand);
 }
 
 void Instructions::pop(std::string string)
@@ -97,7 +99,16 @@ void Instructions::assert(std::string string)
 
 void Instructions::add(std::string string)
 {
-    std::cout << string << std::endl;
+    IOperand        *op1;
+    IOperand        *op2;
+    IOperand        *opret;
+
+    op1 = this->stackOperand.top();
+    op2 = this->stackOperand.top();
+    this->stackOperand.pop();
+    this->stackOperand.pop();
+    opret = *op1 + *op2;
+
 }
 
 void Instructions::sub(std::string string)
