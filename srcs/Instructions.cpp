@@ -1,6 +1,4 @@
-
-#include <iostream>
-#include <Int8.hh>
+#include "Int8.hh"
 #include "Instructions.hh"
 
 Instructions::Instructions()
@@ -113,7 +111,11 @@ void Instructions::print(std::string string)
 
 IOperand *Instructions::createInt8(const std::string &value)
 {
-    Int8 *newValue = new Int8(std::stoi(value));
+    std::istringstream   oss(value);
+    char    c;
+
+    oss >> c;
+    Int8 *newValue = new Int8(c);
 }
 
 IOperand *Instructions::createInt16(std::string const &value)

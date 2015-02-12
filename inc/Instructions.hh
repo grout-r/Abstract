@@ -1,5 +1,6 @@
 #ifndef INSTRUCTION_H_
 # define INSTRUCTION_H_
+
 # include <vector>
 # include <stack>
 # include <string>
@@ -8,6 +9,7 @@
 # include <sstream>
 # include <iostream>
 # include <fstream>
+# include <iostream>
 # include "IOperand.hh"
 
 class           Instructions
