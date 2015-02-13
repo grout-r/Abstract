@@ -142,7 +142,7 @@ IOperand *Instructions::createInt8(const std::string &value)
     char    c;
 
     oss >> c;
-    Int8 *newValue = new Int8(c);
+    Int8<char> *newValue = new Int8<char>(c, INT8, 0);
     std::cout << "j'ai crée un Int 8! ses parametre sont : " << value << std::endl;
     return newValue;
 }

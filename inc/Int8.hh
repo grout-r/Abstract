@@ -16,21 +16,22 @@
 # include <iostream>
 # include "IOperand.hh"
 
-//template<typename T>
+template<class T>
 class                                   Int8 : public IOperand
 {
 private:
-  char 		                            value;
+  T 		                            value;
   std::string                           s_value;
   eOperandType                          type;
   int                                   precision;
   typedef IOperand*	                    (Int8::*ptr)(const IOperand &rhs, char);
   std::map<eOperandType, ptr>           map_type;
-    template<typename T>
+  //  template<typename T>
     IOperand *calc(const IOperand &rhs, char);
 
 public:
-  Int8(char);
+
+    Int8(T, eOperandType, int);
   ~Int8();
 
   std::string const & toString() const;
@@ -44,5 +45,7 @@ public:
   IOperand*	operator%(const IOperand &rhs);
 
 };
+
+template class Int8<char>;
 
 #endif
