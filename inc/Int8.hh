@@ -16,10 +16,11 @@
 # include <iostream>
 # include "IOperand.hh"
 
+//template<typename T>
 class                                   Int8 : public IOperand
 {
 private:
-  char		                            value;
+  char 		                            value;
   std::string                           s_value;
   eOperandType                          type;
   int                                   precision;
