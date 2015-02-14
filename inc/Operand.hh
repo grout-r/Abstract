@@ -8,8 +8,8 @@
 // Last update Wed Feb 11 14:41:51 2015 Jordan Verove
 //
 
-#ifndef INT8_H_
-# define INT8_H_
+#ifndef OPERAND_H_
+# define OPERAND_H_
 
 # include <sstream>
 # include <map>

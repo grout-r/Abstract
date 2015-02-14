@@ -19,17 +19,17 @@ Instructions::Instructions()
     this->db_create[FLOAT] = &Instructions::createFloat;
     this->db_create[DOUBLE] = &Instructions::createDouble;
 
-    this->db_type["Int8("] = INT8;
-    this->db_type["Int16("] = INT8;
-    this->db_type["Int32("] = INT8;
-    this->db_type["Float("] = INT8;
-    this->db_type["Double("] = INT8;
+    this->db_type["int8("] = INT8;
+    this->db_type["int16("] = INT16;
+    this->db_type["int32("] = INT32;
+    this->db_type["float("] = FLOAT;
+    this->db_type["double("] = DOUBLE;
 
-    this->all_type.push_back("Operand(");
-    this->all_type.push_back("Int16(");
-    this->all_type.push_back("Int32(");
-    this->all_type.push_back("Float(");
-    this->all_type.push_back("Double(");
+    this->all_type.push_back("int8(");
+    this->all_type.push_back("int16(");
+    this->all_type.push_back("int32(");
+    this->all_type.push_back("float(");
+    this->all_type.push_back("double(");
 }
 
 Instructions::~Instructions()
@@ -41,17 +41,20 @@ std::pair<eOperandType, std::string> Instructions::parseValue(std::string string
 {
     std::pair<eOperandType, std::string> ret;
     int                 i = 0;
-
-    //std::cout << this->all_type[4] << std::endl;
-   while(string.find(this->all_type[i]) != 0 && i != 4)
-   {
+    int                 j = 0;
+    while(string.find(this->all_type[i]) != 0 && i != 4)
+     {
        i++;
-   }
-
-
+     }
     ret.first = this->db_type[this->all_type[i]];
-    std::cout << "yOOO" << ret.first << std::endl;
-    ret.second = "15";
+    i = (int) string.find("(");
+    j = (int) string.find(")");
+    i++;
+    while (i != j)
+    {
+        ret.second.push_back(string[i]);
+        i++;
+    }
     return (ret);
 }
 
@@ -70,8 +73,8 @@ void Instructions::execute()
 
 void Instructions::addInstruction(const std::string &line)
 {
-    std::istringstream tmp(line);
     std::string         word;
+    std::istringstream tmp(line);
     std::pair<ptr, std::string>       newInstruction;
 
     void                (Instructions::*ptr)(std::string);
@@ -187,15 +190,33 @@ IOperand *Instructions::createInt16(const std::string &value)
 
 IOperand *Instructions::createInt32(const std::string &value)
 {
-    return NULL;
+    std::istringstream   oss(value);
+    int    i;
+
+    oss >> i;
+    Operand<int> *newValue = new Operand<int>(i, INT32, 2);
+    std::cout << "j'ai crée un Int 32! ses parametre sont : " << value << std::endl;
+    return newValue;
 }
 
 IOperand *Instructions::createFloat(const std::string &value)
 {
-    return NULL;
+    std::istringstream   oss(value);
+    float    f;
+
+    oss >> f;
+    Operand<float> *newValue = new Operand<float>(f, FLOAT, 3);
+    std::cout << "j'ai crée un float! ses parametre sont : " << value << std::endl;
+    return newValue;
 }
 
 IOperand *Instructions::createDouble(const std::string &value)
 {
-    return NULL;
+    std::istringstream   oss(value);
+    double    d;
+
+    oss >> d;
+    Operand<double> *newValue = new Operand<double>(d, DOUBLE, 4);
+    std::cout << "j'ai crée un double ! ses parametre sont : " << value << std::endl;
+    return newValue;
 }

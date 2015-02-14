@@ -1,4 +1,4 @@
-push Int8(14)
-push Int16(14)
+push int8(14)
+push int16(14)
 add
 dump
