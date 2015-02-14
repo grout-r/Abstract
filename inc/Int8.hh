@@ -16,6 +16,9 @@
 # include <iostream>
 # include "IOperand.hh"
 
+
+template <typename T> class Int8;
+
 template<class T>
 class                                   Int8 : public IOperand
 {
@@ -45,7 +48,5 @@ public:
   IOperand*	operator%(const IOperand &rhs);
 
 };
-
-template class Int8<char>;
 
 #endif

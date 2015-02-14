@@ -103,3 +103,5 @@ std::string const& Int8<T>::toString() const
 {
    return this->s_value;
 }
+
+template class Int8<char>;

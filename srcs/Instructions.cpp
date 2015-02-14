@@ -166,4 +166,3 @@ IOperand *Instructions::createDouble(const std::string &value)
 {
     return NULL;
 }
-
