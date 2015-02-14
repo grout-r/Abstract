@@ -10,7 +10,7 @@ set(SOURCE_FILES
     srcs/main.cpp
     srcs/Instructions.cpp
     srcs/IOperand.cpp
-    srcs/Int8.cpp
+    srcs/Operand.cpp
     )
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${Abstract_SOURCE_DIR}/bin)

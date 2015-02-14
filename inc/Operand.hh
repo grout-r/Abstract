@@ -17,25 +17,27 @@
 # include "IOperand.hh"
 
 
-template <typename T> class Int8;
+template <typename T> class Operand;
 
 template<class T>
-class                                   Int8 : public IOperand
+class Operand : public IOperand
 {
 private:
   T 		                            value;
   std::string                           s_value;
   eOperandType                          type;
   int                                   precision;
-  typedef IOperand*	                    (Int8::*ptr)(const IOperand &rhs, char);
+  typedef IOperand*	                    (Operand::*ptr)(const IOperand &rhs, char);
   std::map<eOperandType, ptr>           map_type;
-  //  template<typename T>
+    template<typename U>
     IOperand *calc(const IOperand &rhs, char);
 
 public:
 
-    Int8(T, eOperandType, int);
-  ~Int8();
+    Operand(T, eOperandType, int);
+//    Int8()
+    ~Operand();
+
 
   std::string const & toString() const;
   int getPrecision() const ;

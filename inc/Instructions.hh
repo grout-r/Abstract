@@ -20,6 +20,8 @@ private:
     std::stack<IOperand*>                           stackOperand;
     std::map<std::string, ptr>                      db;
     std::map<eOperandType, ptr_create>              db_create;
+    std::map<std::string, eOperandType>             db_type;
+    std::vector<std::string>                        all_type;
     std::vector<std::pair<ptr, std::string> >       instructions;
 
     std::pair<eOperandType, std::string>            parseValue(std::string);

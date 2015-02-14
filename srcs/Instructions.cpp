@@ -1,4 +1,4 @@
-#include "Int8.hh"
+#include "Operand.hh"
 #include "Instructions.hh"
 
 Instructions::Instructions()
@@ -18,6 +18,18 @@ Instructions::Instructions()
     this->db_create[INT32] = &Instructions::createInt32;
     this->db_create[FLOAT] = &Instructions::createFloat;
     this->db_create[DOUBLE] = &Instructions::createDouble;
+
+    this->db_type["Int8("] = INT8;
+    this->db_type["Int16("] = INT8;
+    this->db_type["Int32("] = INT8;
+    this->db_type["Float("] = INT8;
+    this->db_type["Double("] = INT8;
+
+    this->all_type.push_back("Operand(");
+    this->all_type.push_back("Int16(");
+    this->all_type.push_back("Int32(");
+    this->all_type.push_back("Float(");
+    this->all_type.push_back("Double(");
 }
 
 Instructions::~Instructions()
@@ -28,7 +40,17 @@ Instructions::~Instructions()
 std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
 {
     std::pair<eOperandType, std::string> ret;
-    ret.first = INT8;
+    int                 i = 0;
+
+    //std::cout << this->all_type[4] << std::endl;
+   while(string.find(this->all_type[i]) != 0 && i != 4)
+   {
+       i++;
+   }
+
+
+    ret.first = this->db_type[this->all_type[i]];
+    std::cout << "yOOO" << ret.first << std::endl;
     ret.second = "15";
     return (ret);
 }
@@ -89,7 +111,11 @@ void Instructions::pop(std::string string)
 
 void Instructions::dump(std::string string)
 {
-    std::cout << string << std::endl;
+while (!this->stackOperand.empty())
+{
+    std::cout << this->stackOperand.top()->toString() << std::endl;
+    this->stackOperand.pop();
+}
 }
 
 void Instructions::assert(std::string string)
@@ -108,6 +134,7 @@ void Instructions::add(std::string string)
     this->stackOperand.pop();
     this->stackOperand.pop();
     opret = *op1 + *op2;
+    this->stackOperand.push(opret);
 
 }
 
@@ -142,14 +169,20 @@ IOperand *Instructions::createInt8(const std::string &value)
     char    c;
 
     oss >> c;
-    Int8<char> *newValue = new Int8<char>(c, INT8, 0);
+    Operand<char> *newValue = new Operand<char>(c, INT8, 0);
     std::cout << "j'ai crée un Int 8! ses parametre sont : " << value << std::endl;
     return newValue;
 }
 
 IOperand *Instructions::createInt16(const std::string &value)
 {
-    return NULL;
+    std::istringstream   oss(value);
+    short    s;
+
+    oss >> s;
+    Operand<short> *newValue = new Operand<short>(s, INT16, 1);
+    std::cout << "j'ai crée un Int 16! ses parametre sont : " << value << std::endl;
+    return newValue;
 }
 
 IOperand *Instructions::createInt32(const std::string &value)

@@ -1,3 +1,4 @@
 push Int8(14)
-push Int8(14)
-add Int8(14)
+push Int16(14)
+add
+dump
