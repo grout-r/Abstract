@@ -130,3 +130,7 @@ std::string const& Operand<T>::toString() const
 
 template class Operand<char>;
 template class Operand<short>;
+template class Operand<int>;
+template class Operand<float>;
+template class Operand<double>;
+

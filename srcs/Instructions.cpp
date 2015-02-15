@@ -217,9 +217,9 @@ IOperand *Instructions::createInt8(const std::string &value)
     char     c;
 
     oss >> c;
-    std::cout << "yap" <<
+    std::cout << "yap" << c << std::endl;
     Operand<char> *newValue = new Operand<char>(c, INT8, 0);
-    std::cout << "j'ai crée uun Int 8! ses parametre sont : " << value << std::endl;
+    std::cout << "j'ai crée uun Int 8! ses parametre sont short: " << value << std::endl;
     return newValue;
 }
 
