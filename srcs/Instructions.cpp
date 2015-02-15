@@ -214,12 +214,10 @@ void Instructions::print(std::string string)
 IOperand *Instructions::createInt8(const std::string &value)
 {
     std::istringstream   oss(value);
-    short    s;
     char     c;
 
     oss >> c;
-    s = static_cast<short>(c);
-    std::cout << "yap" << s << std::endl;
+    std::cout << "yap" <<
     Operand<char> *newValue = new Operand<char>(c, INT8, 0);
     std::cout << "j'ai crée uun Int 8! ses parametre sont : " << value << std::endl;
     return newValue;
