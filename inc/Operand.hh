@@ -27,15 +27,14 @@ private:
   std::string                           s_value;
   eOperandType                          type;
   int                                   precision;
-  typedef IOperand*	                    (Operand::*ptr)(const IOperand &rhs, char);
+  typedef IOperand*	                    (Operand::*ptr)(const IOperand &rhs);
   std::map<eOperandType, ptr>           map_type;
     template<typename U>
-    IOperand *calc(const IOperand &rhs, char);
+    IOperand *calc(const IOperand &rhs);
 
 public:
 
     Operand(T, eOperandType, int);
-//    Int8()
     ~Operand();
 
 

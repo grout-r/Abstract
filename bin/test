@@ -1,4 +1,8 @@
-push int8(14)
-push int16(14)
+push int8(221)
+push double(14)
+push float(17)
+push int32(12)
+add
+dump
 add
 dump

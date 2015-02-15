@@ -15,6 +15,8 @@ Operand<T>::Operand(T value, eOperandType type, int precision)
 {
     std::ostringstream oss;
 
+    std::cout <<   "yop" << value << std::endl;
+
     this->value = value;
     oss <<  this->value;
     this->s_value = oss.str();
@@ -33,9 +35,10 @@ Operand<T>::~Operand()
 
 }
 
+
 template<typename T>
 template<typename U>
-IOperand*	Operand<T>::calc(const IOperand &rhs, char operation)
+IOperand *	Operand<T>::calc(const IOperand &rhs)
 {
     T   v1;
     U   v2;
@@ -44,11 +47,8 @@ IOperand*	Operand<T>::calc(const IOperand &rhs, char operation)
 
     std::istringstream oss1(this->toString());
     std::istringstream oss2(rhs.toString());
-
     oss1 >> v1;
     oss2 >> v2;
-
-
     if (this->precision > rhs.getPrecision())
     {
         v1 = v1 + v2;
@@ -61,79 +61,53 @@ IOperand*	Operand<T>::calc(const IOperand &rhs, char operation)
         newValue2 = new Operand<U>(v2, rhs.getType(), rhs.getPrecision());
         return newValue2;
     }
-
-    /*
-    std::cout << "le resultat de l'additon est " << v1 << std::endl;
-    std::cout << v2 << std::endl;
-    if (operation == '+')
-      std::cout << "j'addtionnne" << std::endl;
-  else if (operation == '-')
-      std::cout << "je soustrais" << std::endl;
-  else if (operation == '*')
-      std::cout << "je multiplie" << std::endl;
-  else if (operation == '/')
-      std::cout << "je divise" << std::endl;
-  else if (operation == '%')
-      std::cout << "je modulo" << std::endl;
-return NULL;
-*/
 }
 
 template<typename T>
 IOperand*	    Operand<T>::operator+(const IOperand &rhs)
 {
-  IOperand*		(Operand<T>::*ptr)(const IOperand &rhs, char);
+  IOperand*		(Operand<T>::*ptr)(const IOperand &rhs);
 
     ptr = this->map_type[rhs.getType()];
-    return((*this.*(ptr))(rhs, '+'));
-
-
-/*
-    IOperand    *most_accurate;
-    IOperand    *less_accurate;
-    if (this->precision > rhs.getPrecision())
-    {
-        most_accurate = this;
-        less_accurate = &rhs;
-    }
-    else
-    {
-        most_accurate = &rhs;
-        less_accurate = this;
-    }
-*/
-
-
-
+    return((*this.*(ptr))(rhs));
 }
 
 template<typename T>
 IOperand*	Operand<T>::operator-(const IOperand &rhs)
 {
-  //return (this->value - rhs.getValue());
-    return NULL;
+    IOperand*		(Operand<T>::*ptr)(const IOperand &rhs);
+
+    ptr = this->map_type[rhs.getType()];
+    return((*this.*(ptr))(rhs));
 }
 
 template<typename T>
 IOperand*	Operand<T>::operator*(const IOperand &rhs)
 {
-  //return (this->value * rhs.getValue());
-    return NULL;
+    IOperand*		(Operand<T>::*ptr)(const IOperand &rhs);
+
+    ptr = this->map_type[rhs.getType()];
+    return((*this.*(ptr))(rhs));
 }
 
 template<typename T>
 IOperand*	Operand<T>::operator/(const IOperand &rhs)
 {
-  //return (this->value / rhs.getValue());
-    return NULL;
+    IOperand*		(Operand<T>::*ptr)(const IOperand &rhs);
+
+    ptr = this->map_type[rhs.getType()];
+    return((*this.*(ptr))(rhs));
 }
 
 template<typename T>
 IOperand*	Operand<T>::operator%(const IOperand &rhs)
 {
-  //return (this->value % rhs.getValue());
-    return NULL;
+    IOperand*		(Operand<T>::*ptr)(const IOperand &rhs);
+
+    ptr = this->map_type[rhs.getType()];
+    return((*this.*(ptr))(rhs));
 }
+
 
 
 template<typename T>

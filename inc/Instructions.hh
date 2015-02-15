@@ -11,13 +11,14 @@
 # include <fstream>
 # include <iostream>
 # include "IOperand.hh"
+# include "Operand.hh"
 
 class                                               Instructions
 {
 private:
     typedef void                                    (Instructions::*ptr)(std::string);
     typedef IOperand*                               (Instructions::*ptr_create)(std::string const &);
-    std::stack<IOperand*>                           stackOperand;
+    std::vector<IOperand*>                          stackOperand;
     std::map<std::string, ptr>                      db;
     std::map<eOperandType, ptr_create>              db_create;
     std::map<std::string, eOperandType>             db_type;
