@@ -10,8 +10,11 @@
 # include <iostream>
 # include <fstream>
 # include <iostream>
+# include <exception>
+# include <cstdlib>
 # include "IOperand.hh"
 # include "Operand.hh"
+# include "Error.hh"
 
 class                                               Instructions
 {
@@ -48,6 +51,7 @@ public:
     void                                            div( std::string);
     void                                            mod( std::string);
     void                                            print( std::string);
+    void                                            exit( std::string);
 };
 
 #endif

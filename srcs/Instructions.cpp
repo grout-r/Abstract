@@ -13,6 +13,7 @@ Instructions::Instructions()
     this->db["div"] = &Instructions::div;
     this->db["mod"] = &Instructions::mod;
     this->db["print"] = &Instructions::print;
+    this->db["exit"] = &Instructions::exit;
     this->db_create[INT8] = &Instructions::createInt8;
     this->db_create[INT16] = &Instructions::createInt16;
     this->db_create[INT32] = &Instructions::createInt32;
@@ -32,7 +33,7 @@ Instructions::Instructions()
 
 Instructions::~Instructions()
 {
-
+    std::cout << "yo !" << std::endl;
 }
 
 std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
@@ -76,8 +77,10 @@ void Instructions::addInstruction(const std::string &line)
 
     void                (Instructions::*ptr)(std::string);
     tmp >> word;
-    if (this->db.count(word))
+    try
     {
+        if (!this->db.count(word))
+            throw Error(word);
         ptr = this->db[word];
         newInstruction.first = ptr;
         if (word == "push" || word == "assert")
@@ -86,6 +89,11 @@ void Instructions::addInstruction(const std::string &line)
             newInstruction.second = word;
         }
         this->instructions.insert(this->instructions.end(), newInstruction);
+    }
+    catch(Error const& e)
+    {
+        std::cout << "The instruction " << e.what() << " is unknown" <<std::endl;
+        std::exit(1);
     }
 }
 
@@ -108,7 +116,17 @@ void Instructions::push(std::string string)
 
 void Instructions::pop(std::string string)
 {
-    std::cout << string << std::endl;
+    string.append("42");
+    try
+    {
+        if (this->stackOperand.size() == 0)
+            throw Error("The stack is empty. No way to pop.");
+        this->stackOperand.pop_back();
+    }
+    catch(Error const& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 }
 
 void Instructions::dump(std::string string)
@@ -207,6 +225,12 @@ void Instructions::mod(std::string string)
 }
 
 void Instructions::print(std::string string)
+{
+    std::cout << string << std::endl;
+}
+
+
+void Instructions::exit(std::string string)
 {
     std::cout << string << std::endl;
 }

@@ -1,4 +1,6 @@
 push int16(10)
 push int16(3)
 mod
+pop
+pop
 dump

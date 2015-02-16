@@ -11,6 +11,7 @@ set(SOURCE_FILES
     srcs/Instructions.cpp
     srcs/IOperand.cpp
     srcs/Operand.cpp
+    srcs/Error.cpp
     )
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${Abstract_SOURCE_DIR}/bin)
