@@ -14,6 +14,8 @@
 # include <sstream>
 # include <map>
 # include <iostream>
+# include <math.h>
+# include <tgmath.h>
 # include "IOperand.hh"
 
 
@@ -23,14 +25,19 @@ template<class T>
 class Operand : public IOperand
 {
 private:
-  T 		                            value;
-  std::string                           s_value;
-  eOperandType                          type;
-  int                                   precision;
-  typedef IOperand*	                    (Operand::*ptr)(const IOperand &rhs);
-  std::map<eOperandType, ptr>           map_type;
+    T 		                            value;
+    std::string                           s_value;
+    eOperandType                          type;
+    int                                   precision;
+    typedef IOperand*	                  (Operand::*ptr)(const IOperand &rhs, char);
+    std::map<eOperandType, ptr>           map_type;
+    template<typename U, typename V>
+    V do_operation(T, U , char op, int precisionU);
+    template<typename U, typename V>
+    V modulo(T, U);
     template<typename U>
-    IOperand *calc(const IOperand &rhs);
+    IOperand *calc(const IOperand &rhs, char op);
+
 
 public:
 

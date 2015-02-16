@@ -100,9 +100,9 @@ void Instructions::push(std::string string)
     IOperand               *newOperand;
 
     newValue = parseValue(string);
-    std::cout << newValue.second << std::endl;
+    //std::cout << newValue.second << std::endl;
     newOperand = createOperand(newValue.first, newValue.second);
-    std::cout << newOperand->toString() << std::endl;
+    //std::cout << newOperand->toString() << std::endl;
     this->stackOperand.push_back(newOperand);
 }
 
@@ -154,8 +154,8 @@ void Instructions::sub(std::string string)
 
     string.append("42");
     op1 = this->stackOperand.back();
-    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
+    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 - *op2;
     this->stackOperand.push_back(opret);
@@ -169,8 +169,8 @@ void Instructions::mul(std::string string)
 
     string.append("42");
     op1 = this->stackOperand.back();
-    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
+    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 * *op2;
     this->stackOperand.push_back(opret);
@@ -184,8 +184,8 @@ void Instructions::div(std::string string)
 
     string.append("42");
     op1 = this->stackOperand.back();
-    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
+    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 / *op2;
     this->stackOperand.push_back(opret);
@@ -199,8 +199,8 @@ void Instructions::mod(std::string string)
 
     string.append("42");
     op1 = this->stackOperand.back();
-    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
+    op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 % *op2;
     this->stackOperand.push_back(opret);
@@ -214,12 +214,15 @@ void Instructions::print(std::string string)
 IOperand *Instructions::createInt8(const std::string &value)
 {
     std::istringstream   oss(value);
-    char     c;
+    short     s;
+    char      c;
 
-    oss >> c;
-    std::cout << "yap" << c << std::endl;
+    oss >> s;
+    //std::cout << "'jaffiche mon short" << s << std::endl;
+    c = (char)s;
+    //std::cout << "jaffiche mon char" << c << std::endl;
     Operand<char> *newValue = new Operand<char>(c, INT8, 0);
-    std::cout << "j'ai crée uun Int 8! ses parametre sont short: " << value << std::endl;
+    //std::cout << "j'ai crée uun Int 8! ses parametre sont short: " << value << std::endl;
     return newValue;
 }
 

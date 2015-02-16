@@ -18,12 +18,12 @@ class                                               Instructions
 private:
     typedef void                                    (Instructions::*ptr)(std::string);
     typedef IOperand*                               (Instructions::*ptr_create)(std::string const &);
-    std::vector<IOperand*>                          stackOperand;
     std::map<std::string, ptr>                      db;
     std::map<eOperandType, ptr_create>              db_create;
     std::map<std::string, eOperandType>             db_type;
     std::vector<std::string>                        all_type;
     std::vector<std::pair<ptr, std::string> >       instructions;
+    std::vector<IOperand*>                          stackOperand;
 
     std::pair<eOperandType, std::string>            parseValue(std::string);
     IOperand*                                       createInt8(const std::string & value);
