@@ -6,7 +6,7 @@
 // 
 // Started on  Mon Feb  9 17:11:34 2015 Jordan Verove
 // Last update Wed Feb 11 17:46:45 2015 Jordan Verove
-//
+
 
 #include "Operand.hh"
 
@@ -32,12 +32,9 @@ Operand<char>::Operand(char value, eOperandType type, int precision)
 {
     std::ostringstream oss;
 
-    //std::cout <<   "yop" << value << std::endl;
-
     this->value = value;
     oss <<  (short)this->value;
     this->s_value = oss.str();
-    //std::cout << " ah que coucou " << this->s_value << std::endl;
     this->type = type;
     this->precision = precision;
     this->map_type[INT8] = &Operand::calc<char>;
@@ -57,7 +54,6 @@ template<typename T>
 template<typename U>
 IOperand *	Operand<T>::calc(const IOperand &rhs, char op)
 {
-    std::cout << op << std::endl;
     T       v1;
     U       v2;
     short   tmp;
@@ -97,7 +93,6 @@ template<typename T>
 template<typename U, typename V>
 V Operand<T>::do_operation(T t, U u, char op, int precisionU)
 {
-    std::cout << t << "---" << u << std::endl;
     if (op == '+')
         return (t + u);
     if (op == '-')

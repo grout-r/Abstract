@@ -7,7 +7,7 @@ void parseFileInstruction(char *filename, Instructions &instr)
 
     file.open(filename);
     if (!file.is_open())
-        std::cout << "The file has not been foud !" << std::endl;
+        throw Error("The file has not been foud");
     while (std::getline (file,line))
         instr.addInstruction(line);
     file.close();

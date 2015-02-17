@@ -272,11 +272,8 @@ IOperand *Instructions::createInt8(const std::string &value)
     char      c;
 
     oss >> s;
-    //std::cout << "'jaffiche mon short" << s << std::endl;
     c = (char)s;
-    //std::cout << "jaffiche mon char" << c << std::endl;
     Operand<char> *newValue = new Operand<char>(c, INT8, 0);
-    //std::cout << "j'ai crée uun Int 8! ses parametre sont short: " << value << std::endl;
     return newValue;
 }
 
@@ -287,7 +284,6 @@ IOperand *Instructions::createInt16(const std::string &value)
 
     oss >> s;
     Operand<short> *newValue = new Operand<short>(s, INT16, 1);
-    std::cout << "j'ai crée un Int 16! ses parametre sont : " << value << std::endl;
     return newValue;
 }
 
@@ -298,7 +294,6 @@ IOperand *Instructions::createInt32(const std::string &value)
 
     oss >> i;
     Operand<int> *newValue = new Operand<int>(i, INT32, 2);
-    std::cout << "j'ai crée un Int 32! ses parametre sont : " << value << std::endl;
     return newValue;
 }
 
@@ -309,7 +304,6 @@ IOperand *Instructions::createFloat(const std::string &value)
 
     oss >> f;
     Operand<float> *newValue = new Operand<float>(f, FLOAT, 3);
-    std::cout << "j'ai crée un float! ses parametre sont : " << value << std::endl;
     return newValue;
 }
 
@@ -320,6 +314,5 @@ IOperand *Instructions::createDouble(const std::string &value)
 
     oss >> d;
     Operand<double> *newValue = new Operand<double>(d, DOUBLE, 4);
-    std::cout << "j'ai crée un double ! ses parametre sont : " << value << std::endl;
     return newValue;
 }
