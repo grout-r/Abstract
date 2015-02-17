@@ -5,7 +5,7 @@
 // Login   <verove_j@epitech.net>
 // 
 // Started on  Mon Feb  9 17:11:34 2015 Jordan Verove
-// Last update Wed Feb 11 17:46:45 2015 Jordan Verove
+// Last update Tue Feb 17 16:41:28 2015 Jordan Verove
 
 
 #include "Operand.hh"
@@ -101,6 +101,8 @@ V Operand<T>::do_operation(T t, U u, char op, int precisionU)
         return (t * u);
     if (op == '/')
         return (t / u);
+    /* else if (op == '/' && u <= 0)
+       return;*/
     if (op == '%')
     {
         if (precisionU >= 3 || this->getPrecision() >= 3)
