@@ -29,6 +29,7 @@ private:
     std::vector<IOperand*>                          stackOperand;
 
     std::pair<eOperandType, std::string>            parseValue(std::string);
+    bool                                            isAZero(std::string);
     IOperand*                                       createInt8(const std::string & value);
     IOperand*                                       createInt16(const std::string & value);
     IOperand*                                       createInt32(const std::string & value);

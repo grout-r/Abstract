@@ -28,16 +28,24 @@ int                         main(int ac, char **av)
 {
     Instructions instr;
 
-    if (ac > 1)
+    try
     {
-        std::cout << "File Mode" << std::endl;
-        parseFileInstruction(av[1], instr);
+        if (ac > 1)
+        {
+            std::cout << "File Mode" << std::endl;
+            parseFileInstruction(av[1], instr);
+        }
+        else
+        {
+            std::cout << "Manual Mode" << std::endl;
+            parseUserInstruction(instr);
+        }
+        instr.execute();
+        return (0);
     }
-    else
+    catch (Error const& e)
     {
-        std::cout << "Manual Mode" << std::endl;
-        parseUserInstruction(instr);
+        std::cerr << e.what() << std::endl;
+        std::cerr << "Aborting of V.M." << std::endl;
     }
-    instr.execute();
-    return (0);
 }

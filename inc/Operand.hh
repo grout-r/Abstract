@@ -38,7 +38,6 @@ private:
     template<typename U>
     IOperand *calc(const IOperand &rhs, char op);
 
-
 public:
 
     Operand(T, eOperandType, int);

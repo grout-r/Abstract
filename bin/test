@@ -1,6 +1,5 @@
-push int16(10)
-push int16(3)
-mod
-pop
-pop
+push int8(10)
+push int8(12.00)
+add
 dump
+exit

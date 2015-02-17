@@ -33,7 +33,10 @@ Instructions::Instructions()
 
 Instructions::~Instructions()
 {
-    std::cout << "yo !" << std::endl;
+    size_t         i;
+
+    for(i = 0; i != this->stackOperand.size(); i++)
+        delete this->stackOperand[i];
 }
 
 std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
@@ -63,6 +66,8 @@ void Instructions::execute()
     size_t size;
     size = this->instructions.size();
 
+    if (instructions.back().first != &Instructions::exit)
+        throw Error("The program doesn't end with an exit instruction");
     for(i = 0; i !=size; i++)
     {
         (*this.*(instructions[i].first))(this->instructions[i].second);
@@ -77,10 +82,8 @@ void Instructions::addInstruction(const std::string &line)
 
     void                (Instructions::*ptr)(std::string);
     tmp >> word;
-    try
-    {
         if (!this->db.count(word))
-            throw Error(word);
+            throw Error("l'instruction " + word + " est inconnue.");
         ptr = this->db[word];
         newInstruction.first = ptr;
         if (word == "push" || word == "assert")
@@ -89,12 +92,6 @@ void Instructions::addInstruction(const std::string &line)
             newInstruction.second = word;
         }
         this->instructions.insert(this->instructions.end(), newInstruction);
-    }
-    catch(Error const& e)
-    {
-        std::cout << "The instruction " << e.what() << " is unknown" <<std::endl;
-        std::exit(1);
-    }
 }
 
 IOperand *Instructions::createOperand(eOperandType type, std::string const &value)
@@ -117,16 +114,9 @@ void Instructions::push(std::string string)
 void Instructions::pop(std::string string)
 {
     string.append("42");
-    try
-    {
         if (this->stackOperand.size() == 0)
             throw Error("The stack is empty. No way to pop.");
         this->stackOperand.pop_back();
-    }
-    catch(Error const& e)
-    {
-        std::cout << e.what() << std::endl;
-    }
 }
 
 void Instructions::dump(std::string string)
@@ -145,7 +135,22 @@ void Instructions::dump(std::string string)
 
 void Instructions::assert(std::string string)
 {
-    std::cout << string << std::endl;
+    std::pair<eOperandType, std::string> newValue;
+    double      tmp;
+    double      tmp2;
+    std::istringstream oss;
+    IOperand        *back;
+
+    newValue = parseValue(string);
+    oss.str(newValue.second);
+    oss >> tmp;
+    back = this->stackOperand.back();
+    oss.str(back->toString());
+    oss >> tmp2;
+    if (back->getType() != newValue.first)
+        throw Error("Type differ for assert.");
+    if (tmp != tmp2)
+        throw Error("Value differ fo assert");
 }
 
 void Instructions::add(std::string string)
@@ -160,6 +165,8 @@ void Instructions::add(std::string string)
     op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 + *op2;
+    delete op1;
+    delete op2;
     this->stackOperand.push_back(opret);
 
 }
@@ -176,6 +183,8 @@ void Instructions::sub(std::string string)
     op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 - *op2;
+    delete op1;
+    delete op2;
     this->stackOperand.push_back(opret);
 }
 
@@ -191,7 +200,20 @@ void Instructions::mul(std::string string)
     op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 * *op2;
+    delete op1;
+    delete op2;
     this->stackOperand.push_back(opret);
+}
+
+bool        Instructions::isAZero(std::string value)
+{
+    double      tmp;
+
+    std::istringstream oss(value);
+    oss >> tmp;
+    if (tmp == 0)
+        return true;
+    return false;
 }
 
 void Instructions::div(std::string string)
@@ -201,12 +223,16 @@ void Instructions::div(std::string string)
     IOperand        *opret;
 
     string.append("42");
-    op1 = this->stackOperand.back();
-    this->stackOperand.pop_back();
-    op2 = this->stackOperand.back();
-    this->stackOperand.pop_back();
-    opret = *op1 / *op2;
-    this->stackOperand.push_back(opret);
+        op1 = this->stackOperand.back();
+        this->stackOperand.pop_back();
+        op2 = this->stackOperand.back();
+        this->stackOperand.pop_back();
+        if (this->isAZero(op1->toString())  == true)
+            throw Error("Division by zero");
+        opret = *op1 / *op2;
+    delete op1;
+    delete op2;
+        this->stackOperand.push_back(opret);
 }
 
 void Instructions::mod(std::string string)
@@ -221,6 +247,8 @@ void Instructions::mod(std::string string)
     op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
     opret = *op1 % *op2;
+    delete op1;
+    delete op2;
     this->stackOperand.push_back(opret);
 }
 
@@ -232,7 +260,9 @@ void Instructions::print(std::string string)
 
 void Instructions::exit(std::string string)
 {
-    std::cout << string << std::endl;
+    string.append("42");
+    std::cout << "exit is called ! " << std::endl;
+    //exit(0);
 }
 
 IOperand *Instructions::createInt8(const std::string &value)
