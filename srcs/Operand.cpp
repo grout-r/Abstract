@@ -101,8 +101,6 @@ V Operand<T>::do_operation(T t, U u, char op)
         return (t * u);
     if (op == '/')
         return (t / u);
-    /* else if (op == '/' && u <= 0)
-       return;*/
     if (op == '%')
         return(modulo<U, V>(t, u));
     return (u);

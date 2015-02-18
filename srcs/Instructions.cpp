@@ -169,7 +169,7 @@ void Instructions::add(std::string string)
     IOperand        *opret;
 
     if (this->stackOperand.size() < 2)
-      return;
+        throw Error("Not enought element in stack to calculate");
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -188,7 +188,7 @@ void Instructions::sub(std::string string)
     IOperand        *opret;
 
     if (this->stackOperand.size() < 2)
-      return;
+        throw Error("Not enought element in stack to calculate");
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -207,7 +207,7 @@ void Instructions::mul(std::string string)
     IOperand        *opret;
 
     if (this->stackOperand.size() < 2)
-      return;
+      throw Error("Not enought element in stack to calculate");
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -237,13 +237,13 @@ void Instructions::div(std::string string)
   IOperand        *opret;
   
   if (this->stackOperand.size() < 2)
-    return;
+      throw Error("Not enought element in stack to calculate");
   string.append("42");
   op1 = this->stackOperand.back();
   this->stackOperand.pop_back();
   op2 = this->stackOperand.back();
   this->stackOperand.pop_back();
-  if (this->isAZero(op1->toString()))
+  if (this->isAZero(op1->toString()) || this->isAZero(op2->toString()))
     throw Error("Division by zero");
   opret = *op1 / *op2;
   delete op1;
@@ -258,7 +258,7 @@ void Instructions::mod(std::string string)
     IOperand        *opret;
 
     if (this->stackOperand.size() < 2)
-      return;
+        throw Error("Not enought element in stack to calculate");
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -279,7 +279,7 @@ void Instructions::print(std::string string)
     char                 c;
 
     if (this->stackOperand.size() == 0)
-      return;
+        throw Error("Not enought element to print");
     back = this->stackOperand.back();
     if (back->getType() != INT8)
         throw Error("Print instruction : value is not a 8 bits integer");
