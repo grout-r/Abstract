@@ -15,6 +15,7 @@
 # include <map>
 # include <iostream>
 # include <math.h>
+# include <cmath>
 # include <tgmath.h>
 # include "IOperand.hh"
 # include "Error.hh"
@@ -32,16 +33,13 @@ private:
     int                                   precision;
     typedef IOperand*	                  (Operand::*ptr)(const IOperand &rhs, char);
     std::map<eOperandType, ptr>           map_type;
-    template<typename V>
-    void modulo(T, double);
-    template<typename V>
-    void modulo(T, float);
-    template<typename U, typename V>
-    V do_operation(T, U , char op, int precisionU);
-    template<typename U, typename V>
-    V modulo(T, U);
     template<typename U>
     IOperand *calc(const IOperand &rhs, char op);
+    template<typename U, typename V>
+    V do_operation(T, U , char op);
+
+    template<typename U, typename V>
+    V modulo(T t, U u);
 
 public:
 

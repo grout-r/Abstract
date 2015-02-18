@@ -1,6 +1,5 @@
-push int8(10)
-assert int8(10)
-push int8(97)
-add
-print
+push float(-10)
+push int16(3)
+mod
+dump
 exit

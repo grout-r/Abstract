@@ -77,13 +77,13 @@ IOperand *	Operand<T>::calc(const IOperand &rhs, char op)
         }
     if (this->precision > rhs.getPrecision())
     {
-        v1 = do_operation<U, T>(v2, v1, op, rhs.getPrecision());
+        v1 = do_operation<U, T>(v2, v1, op);
         newValue1 = new Operand<T>(v1, this->getType(), this->getPrecision());
         return newValue1;
     }
     else
     {
-        v2 = do_operation<U, U>(v2, v1, op, rhs.getPrecision());
+        v2 = do_operation<U, U>(v2, v1, op);
         newValue2 = new Operand<U>(v2, rhs.getType(), rhs.getPrecision());
         return newValue2;
     }
@@ -91,7 +91,7 @@ IOperand *	Operand<T>::calc(const IOperand &rhs, char op)
 
 template<typename T>
 template<typename U, typename V>
-V Operand<T>::do_operation(T t, U u, char op, int precisionU)
+V Operand<T>::do_operation(T t, U u, char op)
 {
     if (op == '+')
         return (t + u);
@@ -102,39 +102,30 @@ V Operand<T>::do_operation(T t, U u, char op, int precisionU)
     if (op == '/')
         return (t / u);
     if (op == '%')
-    {
-        if (precisionU >= 3 || this->getPrecision() >= 3)
-            std::cout << "HEY YA POUM PAM PIM" << std::endl;
-        else
-            modulo<U, V>(t, u);
-    }
+        return(modulo<U, V>(t, u));
     return (u);
-}
-
-template<typename T>
-template<typename V>
-void Operand<T>::modulo(T t, double u)
-{
-    throw Error("Modulo with double.");
-}
-
-template<typename T>
-template<typename V>
-void Operand<T>::modulo(T t, float u)
-{
-    throw Error("Modulo with float.");
 }
 
 template<typename T>
 template<typename U, typename V>
 V Operand<T>::modulo(T t, U u)
 {
-    //V       ret;
-    std::cout << t << u << std::endl;
-    //ret = t % u;
-    return 12;
-}
+    bool neg = false;
+    if (t < 0)
+    {
+        t *= -1;
+        neg = true;
+    }
+    if (u < 0)
+        u *= -1;
+    while ((double)t >=(double) u)
+        t -= u;
+    if (neg)
+        return t * -1;
+    else
+        return t;
 
+}
 
 template<typename T>
 IOperand*	    Operand<T>::operator+(const IOperand &rhs)
