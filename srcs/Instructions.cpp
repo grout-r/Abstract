@@ -69,8 +69,8 @@ void Instructions::execute()
 {
     size_t i = 0;
     size_t size;
+ 
     size = this->instructions.size();
-
     if (instructions.back().first != &Instructions::exit)
         throw Error("The program doesn't end with an exit instruction");
     for(i = 0; i !=size; i++)
@@ -118,10 +118,12 @@ void Instructions::push(std::string string)
 
 void Instructions::pop(std::string string)
 {
-    string.append("42");
-        if (this->stackOperand.size() == 0)
-            throw Error("The stack is empty. No way to pop.");
-        this->stackOperand.pop_back();
+  if (this->stackOperand.size() == 0)
+    return;
+  string.append("42");
+  if (this->stackOperand.size() == 0)
+    throw Error("The stack is empty. No way to pop.");
+  this->stackOperand.pop_back();
 }
 
 void Instructions::dump(std::string string)
@@ -135,7 +137,6 @@ void Instructions::dump(std::string string)
         std::cout << this->stackOperand[i]->toString() << std::endl;
         i++;
     }
-    std::cout << "end of dump !\n " << std::endl;
 }
 
 void Instructions::assert(std::string string)
@@ -147,7 +148,8 @@ void Instructions::assert(std::string string)
     std::istringstream oss2;
     IOperand        *back;
 
-
+    if (this->stackOperand.size() == 0)
+      return;
     newValue = parseValue(string);
     oss.str(newValue.second);
     oss >> tmp;
@@ -166,6 +168,8 @@ void Instructions::add(std::string string)
     IOperand        *op2;
     IOperand        *opret;
 
+    if (this->stackOperand.size() < 2)
+      return;
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -175,7 +179,6 @@ void Instructions::add(std::string string)
     delete op1;
     delete op2;
     this->stackOperand.push_back(opret);
-
 }
 
 void Instructions::sub(std::string string)
@@ -184,6 +187,8 @@ void Instructions::sub(std::string string)
     IOperand        *op2;
     IOperand        *opret;
 
+    if (this->stackOperand.size() < 2)
+      return;
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -201,6 +206,8 @@ void Instructions::mul(std::string string)
     IOperand        *op2;
     IOperand        *opret;
 
+    if (this->stackOperand.size() < 2)
+      return;
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -219,27 +226,29 @@ bool        Instructions::isAZero(std::string value)
     std::istringstream iss(value);
     iss >> tmp;
     if (tmp == 0)
-        return true;
+      return true;
     return false;
 }
 
 void Instructions::div(std::string string)
 {
-    IOperand        *op1;
-    IOperand        *op2;
-    IOperand        *opret;
-
-    string.append("42");
-        op1 = this->stackOperand.back();
-        this->stackOperand.pop_back();
-        op2 = this->stackOperand.back();
-        this->stackOperand.pop_back();
-        if (this->isAZero(op1->toString()))
-            throw Error("Division by zero");
-        opret = *op1 / *op2;
-    delete op1;
-    delete op2;
-        this->stackOperand.push_back(opret);
+  IOperand        *op1;
+  IOperand        *op2;
+  IOperand        *opret;
+  
+  if (this->stackOperand.size() < 2)
+    return;
+  string.append("42");
+  op1 = this->stackOperand.back();
+  this->stackOperand.pop_back();
+  op2 = this->stackOperand.back();
+  this->stackOperand.pop_back();
+  if (this->isAZero(op1->toString()))
+    throw Error("Division by zero");
+  opret = *op1 / *op2;
+  delete op1;
+  delete op2;
+  this->stackOperand.push_back(opret);
 }
 
 void Instructions::mod(std::string string)
@@ -248,6 +257,8 @@ void Instructions::mod(std::string string)
     IOperand        *op2;
     IOperand        *opret;
 
+    if (this->stackOperand.size() < 2)
+      return;
     string.append("42");
     op1 = this->stackOperand.back();
     this->stackOperand.pop_back();
@@ -267,6 +278,8 @@ void Instructions::print(std::string string)
     short                s;
     char                 c;
 
+    if (this->stackOperand.size() == 0)
+      return;
     back = this->stackOperand.back();
     if (back->getType() != INT8)
         throw Error("Print instruction : value is not a 8 bits integer");
