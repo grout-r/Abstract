@@ -46,6 +46,6 @@ int                         main(int ac, char **av)
     catch (Error const& e)
     {
         std::cerr << e.what() << std::endl;
-        std::cerr << "Aborting of V.M." << std::endl;
+        std::cerr << "Aborting V.M." << std::endl;
     }
 }

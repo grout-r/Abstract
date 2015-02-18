@@ -27,6 +27,7 @@ private:
     std::vector<std::string>                        all_type;
     std::vector<std::pair<ptr, std::string> >       instructions;
     std::vector<IOperand*>                          stackOperand;
+    bool                                            doIExit;
 
     std::pair<eOperandType, std::string>            parseValue(std::string);
     bool                                            isAZero(std::string);

@@ -29,6 +29,7 @@ Instructions::Instructions()
     this->all_type.push_back("int32(");
     this->all_type.push_back("float(");
     this->all_type.push_back("double(");
+    this->doIExit = false;
 }
 
 Instructions::~Instructions()
@@ -42,15 +43,19 @@ Instructions::~Instructions()
 std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
 {
     std::pair<eOperandType, std::string> ret;
-    int                 i = 0;
-    int                 j = 0;
+    size_t                 i = 0;
+    size_t                 j = 0;
     while(string.find(this->all_type[i]) != 0 && i != 4)
      {
        i++;
      }
+    if (string.find(this->all_type[i]) != 0)
+        throw Error("The type of instruction " + string + " is not valid");
     ret.first = this->db_type[this->all_type[i]];
-    i = (int) string.find("(");
-    j = (int) string.find(")");
+    i = string.find("(");
+    j = string.find(")");
+    if (i >= j || j == string.npos || i == string.npos)
+        throw Error("Instruction " + string + " is not valid");
     i++;
     while (i != j)
     {
@@ -66,10 +71,13 @@ void Instructions::execute()
     size_t size;
     size = this->instructions.size();
 
+
     if (instructions.back().first != &Instructions::exit)
         throw Error("The program doesn't end with an exit instruction");
     for(i = 0; i !=size; i++)
     {
+        if(this->doIExit)
+            break;
         (*this.*(instructions[i].first))(this->instructions[i].second);
     }
 }
@@ -105,9 +113,7 @@ void Instructions::push(std::string string)
     IOperand               *newOperand;
 
     newValue = parseValue(string);
-    //std::cout << newValue.second << std::endl;
     newOperand = createOperand(newValue.first, newValue.second);
-    //std::cout << newOperand->toString() << std::endl;
     this->stackOperand.push_back(newOperand);
 }
 
@@ -139,18 +145,20 @@ void Instructions::assert(std::string string)
     double      tmp;
     double      tmp2;
     std::istringstream oss;
+    std::istringstream oss2;
     IOperand        *back;
+
 
     newValue = parseValue(string);
     oss.str(newValue.second);
     oss >> tmp;
     back = this->stackOperand.back();
-    oss.str(back->toString());
-    oss >> tmp2;
+    oss2.str(back->toString());
+    oss2 >> tmp2;
     if (back->getType() != newValue.first)
         throw Error("Type differ for assert.");
-    if (tmp != tmp2)
-        throw Error("Value differ fo assert");
+    else if (tmp != tmp2)
+        throw Error("Value differ for assert");
 }
 
 void Instructions::add(std::string string)
@@ -227,7 +235,7 @@ void Instructions::div(std::string string)
         this->stackOperand.pop_back();
         op2 = this->stackOperand.back();
         this->stackOperand.pop_back();
-        if (this->isAZero(op1->toString())  == true)
+        if (this->isAZero(op1->toString()))
             throw Error("Division by zero");
         opret = *op1 / *op2;
     delete op1;
@@ -261,8 +269,7 @@ void Instructions::print(std::string string)
 void Instructions::exit(std::string string)
 {
     string.append("42");
-    std::cout << "exit is called ! " << std::endl;
-    //exit(0);
+    this->doIExit = true;
 }
 
 IOperand *Instructions::createInt8(const std::string &value)
