@@ -17,6 +17,7 @@
 # include <math.h>
 # include <tgmath.h>
 # include "IOperand.hh"
+# include "Error.hh"
 
 
 template <typename T> class Operand;
@@ -35,6 +36,10 @@ private:
     V do_operation(T, U , char op, int precisionU);
     template<typename U, typename V>
     V modulo(T, U);
+    template<typename V>
+    void modulo(T, double);
+    template<typename V>
+    void modulo(T, float);
     template<typename U>
     IOperand *calc(const IOperand &rhs, char op);
 
