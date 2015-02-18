@@ -112,15 +112,6 @@ V Operand<T>::do_operation(T t, U u, char op, int precisionU)
 }
 
 template<typename T>
-template<typename U, typename V>
-V Operand<T>::modulo(T t, U u)
-{
-    V       ret;
-    ret = t % u;
-    return ret;
-}
-
-template<typename T>
 template<typename V>
 void Operand<T>::modulo(T t, double u)
 {
@@ -133,6 +124,17 @@ void Operand<T>::modulo(T t, float u)
 {
     throw Error("Modulo with float.");
 }
+
+template<typename T>
+template<typename U, typename V>
+V Operand<T>::modulo(T t, U u)
+{
+    //V       ret;
+    std::cout << t << u << std::endl;
+    //ret = t % u;
+    return 12;
+}
+
 
 template<typename T>
 IOperand*	    Operand<T>::operator+(const IOperand &rhs)
