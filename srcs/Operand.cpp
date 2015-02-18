@@ -116,9 +116,28 @@ template<typename U, typename V>
 V Operand<T>::modulo(T t, U u)
 {
     std::cout << t << u << std::endl;
+ //   t % u;
+    return 12;
+}
+/*
+template<typename T>
+template<typename V>
+V Operand<T>::modulo(T t, double u)
+{
+    std::cout << t << u << std::endl;
+    t % u;
     return 12;
 }
 
+template<typename T>
+template<typename V>
+V Operand<T>::modulo(T t, float u)
+{
+    std::cout << t << u << std::endl;
+    t % u;
+    return 12;
+}
+*/
 template<typename T>
 IOperand*	    Operand<T>::operator+(const IOperand &rhs)
 {

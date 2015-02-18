@@ -1,6 +1,6 @@
 push int8(10)
-push int8(12)
+assert int8(10)
+push int8(97)
 add
-dump
-dump
+print
 exit

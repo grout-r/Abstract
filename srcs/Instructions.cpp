@@ -71,7 +71,6 @@ void Instructions::execute()
     size_t size;
     size = this->instructions.size();
 
-
     if (instructions.back().first != &Instructions::exit)
         throw Error("The program doesn't end with an exit instruction");
     for(i = 0; i !=size; i++)
@@ -217,8 +216,8 @@ bool        Instructions::isAZero(std::string value)
 {
     double      tmp;
 
-    std::istringstream oss(value);
-    oss >> tmp;
+    std::istringstream iss(value);
+    iss >> tmp;
     if (tmp == 0)
         return true;
     return false;
@@ -262,7 +261,19 @@ void Instructions::mod(std::string string)
 
 void Instructions::print(std::string string)
 {
-    std::cout << string << std::endl;
+    string.append("42");
+    IOperand            *back;
+    std::istringstream  iss;
+    short                s;
+    char                 c;
+
+    back = this->stackOperand.back();
+    if (back->getType() != INT8)
+        throw Error("Print instruction : value is not a 8 bits integer");
+    iss.str(back->toString());
+    iss >> s;
+    c = s;
+    std::cout << c << std::endl;
 }
 
 
