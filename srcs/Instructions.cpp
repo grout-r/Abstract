@@ -59,9 +59,15 @@ std::pair<eOperandType, std::string> Instructions::parseValue(std::string string
     i++;
     while (i != j)
     {
-        ret.second.push_back(string[i]);
-        i++;
+        if ((string[i] >= 48 && string[i] <= 57) || string[i] == '-' || string[i] == '.')
+        {
+            ret.second.push_back(string[i]);
+            i++;
+        }
+        else
+            throw Error("Illegal character in input " + string);
     }
+
     return (ret);
 }
 
@@ -264,6 +270,8 @@ void Instructions::mod(std::string string)
     this->stackOperand.pop_back();
     op2 = this->stackOperand.back();
     this->stackOperand.pop_back();
+    if (this->isAZero(op1->toString()) || this->isAZero(op2->toString()))
+        throw Error("Modulo by zero");
     opret = *op1 % *op2;
     delete op1;
     delete op2;

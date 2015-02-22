@@ -20,9 +20,6 @@
 # include "IOperand.hh"
 # include "Error.hh"
 
-
-template <typename T> class Operand;
-
 template<class T>
 class Operand : public IOperand
 {
