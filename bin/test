@@ -1,0 +1,5 @@
+push float(0)
+push int8(98)
+print
+dump
+exit
