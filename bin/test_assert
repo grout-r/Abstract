@@ -1,0 +1,3 @@
+push int8(10)
+assert int16(10)
+exit

@@ -1,5 +1,26 @@
-push float(0)
-push int8(98)
-print
+push float(10)
+push double(1000)  
+mod
+push int8(10)
+push int32(22)
+push float(30)
+div
+add
+push double(2.56)
+add
+push int16(15)
+assert int16(15)
+push int8(6)
+push double(5.33)
+push float(98)
+push int32(56)
+div
+assert float(1.75)
+dump
+add
+assert double(7.08)
+dump
+mul
+mod
 dump
 exit

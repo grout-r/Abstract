@@ -1,0 +1,4 @@
+push int8(15)
+push double(0)
+mod
+exit

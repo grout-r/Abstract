@@ -1,0 +1,5 @@
+push double(300)
+push int8(20)
+add
+dump
+exit
