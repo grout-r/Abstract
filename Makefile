@@ -5,7 +5,7 @@
 ## Login   <verove_j@epitech.net>
 ## 
 ## Started on  Mon Feb 16 09:19:31 2015 Jordan Verove
-## Last update Mon Feb 16 10:05:28 2015 Jordan Verove
+## Last update Mon Feb 23 16:06:29 2015 Roman Grout
 ##
 
 CC =		g++
@@ -35,10 +35,10 @@ $(NAME):	$(OBJ)
 		$(CC) $(CXXFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
-		$(RM) $(NAME)
+		$(RM) $(OBJ)
 
 fclean:		clean
-		$(RM) $(OBJ)
+		$(RM) $(NAME)
 
 re:		fclean all
 

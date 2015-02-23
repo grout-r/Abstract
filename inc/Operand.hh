@@ -21,39 +21,34 @@
 # include "Error.hh"
 
 template<class T>
-class Operand : public IOperand
+class                                       Operand : public IOperand
 {
 private:
-    T 		                            value;
-    std::string                           s_value;
-    eOperandType                          type;
-    int                                   precision;
-    typedef IOperand*	                  (Operand::*ptr)(const IOperand &rhs, char);
-    std::map<eOperandType, ptr>           map_type;
+    T 		                                value;
+    std::string                             s_value;
+    eOperandType                            type;
+    int                                     precision;
+    typedef IOperand*	                    (Operand::*ptr)(const IOperand &rhs, char);
+    std::map<eOperandType, ptr>             map_type;
     template<typename U>
-    IOperand *calc(const IOperand &rhs, char op);
+    IOperand *                              calc(const IOperand &rhs, char op);
     template<typename U, typename V>
-    V do_operation(T, U , char op);
-
+    V                                       do_operation(T, U , char op);
     template<typename U, typename V>
-    V modulo(T t, U u);
+    V                                       modulo(T t, U u);
 
 public:
 
     Operand(T, eOperandType, int);
     ~Operand();
-
-
-  std::string const & toString() const;
-  int getPrecision() const ;
-  eOperandType getType() const;
-
-  IOperand*	operator+(const IOperand &rhs);
-  IOperand*	operator-(const IOperand &rhs);
-  IOperand*	operator*(const IOperand &rhs);
-  IOperand*	operator/(const IOperand &rhs);
-  IOperand*	operator%(const IOperand &rhs);
-
+    std::string const &                     toString() const;
+    int                                     getPrecision() const ;
+    eOperandType                            getType() const;
+    IOperand*	                            operator+(const IOperand &rhs);
+    IOperand*	                            operator-(const IOperand &rhs);
+    IOperand*	                            operator*(const IOperand &rhs);
+    IOperand*	                            operator/(const IOperand &rhs);
+    IOperand*	                            operator%(const IOperand &rhs);
 };
 
 #endif

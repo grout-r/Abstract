@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 push float(10)
-push double(1000)  
+push double(1000)
 mod
 push int8(10)
 push int32(22)
@@ -23,3 +22,5 @@ assert double(7.08)
 dump
 mul
 mod
+dump
+exit

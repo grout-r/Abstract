@@ -40,7 +40,7 @@ Instructions::~Instructions()
         delete this->stackOperand[i];
 }
 
-std::pair<eOperandType, std::string> Instructions::parseValue(std::string string)
+std::pair<eOperandType, std::string> Instructions::parseValue(std::string &string)
 {
     std::pair<eOperandType, std::string> ret;
     size_t                 i = 0;
@@ -109,7 +109,7 @@ void Instructions::addInstruction(const std::string &line)
     this->instructions.insert(this->instructions.end(), newInstruction);
 }
 
-IOperand *Instructions::createOperand(eOperandType type, std::string const &value)
+IOperand *Instructions::createOperand(eOperandType &type, std::string const &value)
 {
     return ((this->*(db_create[type]))(value));
 }
@@ -227,7 +227,7 @@ void Instructions::mul(std::string string)
     this->stackOperand.push_back(opret);
 }
 
-bool        Instructions::isAZero(std::string value)
+bool        Instructions::isAZero(std::string value) const
 {
     double      tmp;
 
@@ -306,6 +306,17 @@ void Instructions::exit(std::string string)
     this->doIExit = true;
 }
 
+template<typename U>
+void Instructions::checkOverflow(U u, std::string value)
+{
+    double                 tmp;
+    std::istringstream          iss(value);
+
+    iss >> tmp;
+    if (tmp != u)
+        throw Error("Overflow/Underflow on value " + value);
+}
+
 IOperand *Instructions::createInt8(const std::string &value)
 {
     std::istringstream   oss(value);
@@ -314,6 +325,7 @@ IOperand *Instructions::createInt8(const std::string &value)
 
     oss >> s;
     c = (char)s;
+    checkOverflow<char>(c, value);
     Operand<char> *newValue = new Operand<char>(c, INT8, 0);
     return newValue;
 }
@@ -324,6 +336,7 @@ IOperand *Instructions::createInt16(const std::string &value)
     short    s;
 
     oss >> s;
+    checkOverflow<short>(s, value);
     Operand<short> *newValue = new Operand<short>(s, INT16, 1);
     return newValue;
 }
@@ -334,6 +347,7 @@ IOperand *Instructions::createInt32(const std::string &value)
     int    i;
 
     oss >> i;
+    checkOverflow<int>(i, value);
     Operand<int> *newValue = new Operand<int>(i, INT32, 2);
     return newValue;
 }
@@ -344,6 +358,7 @@ IOperand *Instructions::createFloat(const std::string &value)
     float    f;
 
     oss >> f;
+    checkOverflow<float>(f, value);
     Operand<float> *newValue = new Operand<float>(f, FLOAT, 3);
     return newValue;
 }
@@ -354,6 +369,7 @@ IOperand *Instructions::createDouble(const std::string &value)
     double    d;
 
     oss >> d;
+    checkOverflow<double>(d, value);
     Operand<double> *newValue = new Operand<double>(d, DOUBLE, 4);
     return newValue;
 }

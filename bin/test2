@@ -1,5 +1,5 @@
-push double(300)
-push int8(20)
-add
+push int8(10)
+push int8(2)
+div
 dump
 exit

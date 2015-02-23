@@ -29,8 +29,10 @@ private:
     std::vector<IOperand*>                          stackOperand;
     bool                                            doIExit;
 
-    std::pair<eOperandType, std::string>            parseValue(std::string);
-    bool                                            isAZero(std::string);
+    template<typename U>
+    void                                            checkOverflow(U, std::string);
+    std::pair<eOperandType, std::string>            parseValue(std::string&);
+    bool                                            isAZero(std::string) const;
     IOperand*                                       createInt8(const std::string & value);
     IOperand*                                       createInt16(const std::string & value);
     IOperand*                                       createInt32(const std::string & value);
@@ -41,7 +43,7 @@ public:
                                                     Instructions();
                                                     ~Instructions();
     void                                            addInstruction(const std::string&);
-    IOperand*                                       createOperand(eOperandType type, const std::string & value);
+    IOperand*                                       createOperand(eOperandType &type, const std::string & value);
     void                                            execute();
     void                                            push( std::string);
     void                                            pop( std::string);

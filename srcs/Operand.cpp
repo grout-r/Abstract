@@ -56,7 +56,7 @@ IOperand *	Operand<T>::calc(const IOperand &rhs, char op)
 {
     T       v1;
     U       v2;
-    short   tmp;
+    double  tmp;
     Operand<T> *newValue1;
     Operand<U> *newValue2;
 
@@ -77,13 +77,13 @@ IOperand *	Operand<T>::calc(const IOperand &rhs, char op)
         }
     if (this->precision > rhs.getPrecision())
     {
-        v1 = do_operation<U, T>(v2, v1, op);
+        v1 = do_operation<U, T>(v1, v2, op);
         newValue1 = new Operand<T>(v1, this->getType(), this->getPrecision());
         return newValue1;
     }
     else
     {
-        v2 = do_operation<U, U>(v2, v1, op);
+        v2 = do_operation<U, U>(v1, v2, op);
         newValue2 = new Operand<U>(v2, rhs.getType(), rhs.getPrecision());
         return newValue2;
     }
@@ -111,12 +111,12 @@ V Operand<T>::do_operation(T t, U u, char op)
             tmp = t * u;
             break;
         case 47:
-            ret = t / u;
-            tmp = t / u;
+            ret = u / t;
+            tmp = u / t;
             break;
         case 37:
-            ret = modulo<U, V>(t, u);
-            tmp = modulo<U, V>(t, u);
+            ret = modulo<V, U>(u, t);
+            tmp = modulo<V, U>(u, t);
             break;
     }
     if (tmp != ret)

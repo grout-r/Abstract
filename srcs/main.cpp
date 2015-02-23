@@ -34,15 +34,9 @@ int                         main(int ac, char **av)
     try
     {
         if (ac > 1)
-        {
-            std::cout << "File Mode" << std::endl;
             parseFileInstruction(av[1], instr);
-        }
         else
-        {
-            std::cout << "Manual Mode" << std::endl;
             parseUserInstruction(instr);
-        }
         instr.execute();
         return (0);
     }
