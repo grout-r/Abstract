@@ -93,17 +93,35 @@ template<typename T>
 template<typename U, typename V>
 V Operand<T>::do_operation(T t, U u, char op)
 {
-    if (op == '+')
-        return (t + u);
-    if (op == '-')
-        return (t - u);
-    if (op == '*')
-        return (t * u);
-    if (op == '/')
-        return (t / u);
-    if (op == '%')
-        return(modulo<U, V>(t, u));
-    return (u);
+    long double tmp;
+    V           ret;
+
+    switch (op)
+    {
+        case 43:
+            ret = t + u;
+            tmp = t + u;
+            break;
+        case 45:
+            ret = t - u;
+            tmp = t - u;
+            break;
+        case 42:
+            ret = t * u;
+            tmp = t * u;
+            break;
+        case 47:
+            ret = t / u;
+            tmp = t / u;
+            break;
+        case 37:
+            ret = modulo<U, V>(t, u);
+            tmp = modulo<U, V>(t, u);
+            break;
+    }
+    if (tmp != ret)
+        throw Error ("Overflow or underflow");
+    return (ret);
 }
 
 template<typename T>

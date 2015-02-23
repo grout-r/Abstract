@@ -93,18 +93,20 @@ void Instructions::addInstruction(const std::string &line)
     std::istringstream tmp(line);
     std::pair<ptr, std::string>       newInstruction;
 
+    if (line[0] == ';' || line.size() == 0)
+        return;
     void                (Instructions::*ptr)(std::string);
     tmp >> word;
-        if (!this->db.count(word))
-            throw Error("l'instruction " + word + " est inconnue.");
-        ptr = this->db[word];
-        newInstruction.first = ptr;
-        if (word == "push" || word == "assert")
-        {
-            tmp >> word;
-            newInstruction.second = word;
-        }
-        this->instructions.insert(this->instructions.end(), newInstruction);
+    if (!this->db.count(word))
+        throw Error("l'instruction " + word + " est inconnue.");
+    ptr = this->db[word];
+    newInstruction.first = ptr;
+    if (word == "push" || word == "assert")
+    {
+         tmp >> word;
+        newInstruction.second = word;
+    }
+    this->instructions.insert(this->instructions.end(), newInstruction);
 }
 
 IOperand *Instructions::createOperand(eOperandType type, std::string const &value)
