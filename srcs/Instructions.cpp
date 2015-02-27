@@ -126,8 +126,6 @@ void Instructions::push(std::string string)
 
 void Instructions::pop(std::string string)
 {
-  if (this->stackOperand.size() == 0)
-    return;
   string.append("42");
   if (this->stackOperand.size() == 0)
     throw Error("The stack is empty. No way to pop.");
