@@ -1,4 +1,0 @@
-push int8(300)
-push int8(46)
-add
-exit
